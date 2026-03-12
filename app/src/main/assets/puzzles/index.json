@@ -1,0 +1,274 @@
+{
+  "levels": [
+    {
+      "id": "easy-001",
+      "difficulty": "EASY",
+      "order": 1,
+      "puzzleFile": "easy-001.json"
+    },
+    {
+      "id": "easy-002",
+      "difficulty": "EASY",
+      "order": 2,
+      "puzzleFile": "easy-002.json"
+    },
+    {
+      "id": "easy-003",
+      "difficulty": "EASY",
+      "order": 3,
+      "puzzleFile": "easy-003.json"
+    },
+    {
+      "id": "easy-004",
+      "difficulty": "EASY",
+      "order": 4,
+      "puzzleFile": "easy-004.json"
+    },
+    {
+      "id": "easy-005",
+      "difficulty": "EASY",
+      "order": 5,
+      "puzzleFile": "easy-005.json"
+    },
+    {
+      "id": "easy-006",
+      "difficulty": "EASY",
+      "order": 6,
+      "puzzleFile": "easy-006.json"
+    },
+    {
+      "id": "easy-007",
+      "difficulty": "EASY",
+      "order": 7,
+      "puzzleFile": "easy-007.json"
+    },
+    {
+      "id": "easy-008",
+      "difficulty": "EASY",
+      "order": 8,
+      "puzzleFile": "easy-008.json"
+    },
+    {
+      "id": "easy-009",
+      "difficulty": "EASY",
+      "order": 9,
+      "puzzleFile": "easy-009.json"
+    },
+    {
+      "id": "easy-010",
+      "difficulty": "EASY",
+      "order": 10,
+      "puzzleFile": "easy-010.json"
+    },
+    {
+      "id": "easy-011",
+      "difficulty": "EASY",
+      "order": 11,
+      "puzzleFile": "easy-011.json"
+    },
+    {
+      "id": "easy-012",
+      "difficulty": "EASY",
+      "order": 12,
+      "puzzleFile": "easy-012.json"
+    },
+    {
+      "id": "easy-013",
+      "difficulty": "EASY",
+      "order": 13,
+      "puzzleFile": "easy-013.json"
+    },
+    {
+      "id": "easy-014",
+      "difficulty": "EASY",
+      "order": 14,
+      "puzzleFile": "easy-014.json"
+    },
+    {
+      "id": "easy-015",
+      "difficulty": "EASY",
+      "order": 15,
+      "puzzleFile": "easy-015.json"
+    },
+    {
+      "id": "medium-001",
+      "difficulty": "MEDIUM",
+      "order": 1,
+      "puzzleFile": "medium-001.json"
+    },
+    {
+      "id": "medium-002",
+      "difficulty": "MEDIUM",
+      "order": 2,
+      "puzzleFile": "medium-002.json"
+    },
+    {
+      "id": "medium-003",
+      "difficulty": "MEDIUM",
+      "order": 3,
+      "puzzleFile": "medium-003.json"
+    },
+    {
+      "id": "medium-004",
+      "difficulty": "MEDIUM",
+      "order": 4,
+      "puzzleFile": "medium-004.json"
+    },
+    {
+      "id": "medium-005",
+      "difficulty": "MEDIUM",
+      "order": 5,
+      "puzzleFile": "medium-005.json"
+    },
+    {
+      "id": "medium-006",
+      "difficulty": "MEDIUM",
+      "order": 6,
+      "puzzleFile": "medium-006.json"
+    },
+    {
+      "id": "medium-007",
+      "difficulty": "MEDIUM",
+      "order": 7,
+      "puzzleFile": "medium-007.json"
+    },
+    {
+      "id": "medium-008",
+      "difficulty": "MEDIUM",
+      "order": 8,
+      "puzzleFile": "medium-008.json"
+    },
+    {
+      "id": "medium-009",
+      "difficulty": "MEDIUM",
+      "order": 9,
+      "puzzleFile": "medium-009.json"
+    },
+    {
+      "id": "medium-010",
+      "difficulty": "MEDIUM",
+      "order": 10,
+      "puzzleFile": "medium-010.json"
+    },
+    {
+      "id": "medium-011",
+      "difficulty": "MEDIUM",
+      "order": 11,
+      "puzzleFile": "medium-011.json"
+    },
+    {
+      "id": "medium-012",
+      "difficulty": "MEDIUM",
+      "order": 12,
+      "puzzleFile": "medium-012.json"
+    },
+    {
+      "id": "medium-013",
+      "difficulty": "MEDIUM",
+      "order": 13,
+      "puzzleFile": "medium-013.json"
+    },
+    {
+      "id": "medium-014",
+      "difficulty": "MEDIUM",
+      "order": 14,
+      "puzzleFile": "medium-014.json"
+    },
+    {
+      "id": "medium-015",
+      "difficulty": "MEDIUM",
+      "order": 15,
+      "puzzleFile": "medium-015.json"
+    },
+    {
+      "id": "hard-001",
+      "difficulty": "HARD",
+      "order": 1,
+      "puzzleFile": "hard-001.json"
+    },
+    {
+      "id": "hard-002",
+      "difficulty": "HARD",
+      "order": 2,
+      "puzzleFile": "hard-002.json"
+    },
+    {
+      "id": "hard-003",
+      "difficulty": "HARD",
+      "order": 3,
+      "puzzleFile": "hard-003.json"
+    },
+    {
+      "id": "hard-004",
+      "difficulty": "HARD",
+      "order": 4,
+      "puzzleFile": "hard-004.json"
+    },
+    {
+      "id": "hard-005",
+      "difficulty": "HARD",
+      "order": 5,
+      "puzzleFile": "hard-005.json"
+    },
+    {
+      "id": "hard-006",
+      "difficulty": "HARD",
+      "order": 6,
+      "puzzleFile": "hard-006.json"
+    },
+    {
+      "id": "hard-007",
+      "difficulty": "HARD",
+      "order": 7,
+      "puzzleFile": "hard-007.json"
+    },
+    {
+      "id": "hard-008",
+      "difficulty": "HARD",
+      "order": 8,
+      "puzzleFile": "hard-008.json"
+    },
+    {
+      "id": "hard-009",
+      "difficulty": "HARD",
+      "order": 9,
+      "puzzleFile": "hard-009.json"
+    },
+    {
+      "id": "hard-010",
+      "difficulty": "HARD",
+      "order": 10,
+      "puzzleFile": "hard-010.json"
+    },
+    {
+      "id": "hard-011",
+      "difficulty": "HARD",
+      "order": 11,
+      "puzzleFile": "hard-011.json"
+    },
+    {
+      "id": "hard-012",
+      "difficulty": "HARD",
+      "order": 12,
+      "puzzleFile": "hard-012.json"
+    },
+    {
+      "id": "hard-013",
+      "difficulty": "HARD",
+      "order": 13,
+      "puzzleFile": "hard-013.json"
+    },
+    {
+      "id": "hard-014",
+      "difficulty": "HARD",
+      "order": 14,
+      "puzzleFile": "hard-014.json"
+    },
+    {
+      "id": "hard-015",
+      "difficulty": "HARD",
+      "order": 15,
+      "puzzleFile": "hard-015.json"
+    }
+  ]
+}

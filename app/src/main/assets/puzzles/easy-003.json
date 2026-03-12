@@ -1,0 +1,48 @@
+{
+  "id": "easy-003",
+  "width": 5,
+  "height": 7,
+  "cells": [
+    {"type": "block"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Kar"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Yankı"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Dur"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Soy"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Evcil hayvan"},
+    {"type": "letter", "solution": "K"},
+    {"type": "letter", "solution": "E"},
+    {"type": "letter", "solution": "D"},
+    {"type": "letter", "solution": "I"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "K"},
+    {"type": "letter", "solution": "U"},
+    {"type": "letter", "solution": "R"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "O"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "K"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
+  ]
+}

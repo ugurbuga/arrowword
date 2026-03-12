@@ -1,0 +1,48 @@
+{
+  "id": "easy-009",
+  "width": 5,
+  "height": 7,
+  "cells": [
+    {"type": "block"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Kap"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Acı"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Tren yolu"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Dede"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Koyu"},
+    {"type": "letter", "solution": "K"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "A"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "C"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "T"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "P"},
+    {"type": "letter", "solution": "I"},
+    {"type": "letter", "solution": "Y"},
+    {"type": "letter", "solution": "A"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Deniz taşıtı"},
+    {"type": "letter", "solution": "G"},
+    {"type": "letter", "solution": "E"},
+    {"type": "letter", "solution": "M"},
+    {"type": "letter", "solution": "I"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
+  ]
+}

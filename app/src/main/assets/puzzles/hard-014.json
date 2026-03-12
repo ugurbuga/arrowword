@@ -1,0 +1,313 @@
+{
+  "id": "hard-014",
+  "width": 9,
+  "height": 11,
+  "cells": [
+    {
+      "type": "clue",
+      "direction": "DOWN",
+      "answerLength": 6,
+      "text": "Kendini büyük göstermeme, mütevazılık"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "T"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "E"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "V"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "A"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "Z"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "U"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    }
+  ]
+}

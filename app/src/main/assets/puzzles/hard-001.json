@@ -1,0 +1,316 @@
+{
+  "id": "hard-001",
+  "width": 9,
+  "height": 11,
+  "cells": [
+    {
+      "type": "clue",
+      "direction": "DOWN",
+      "answerLength": 9,
+      "text": "Hukukta kamu denetçisi"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "O"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "M"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "B"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "U"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "D"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "S"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "M"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "A"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "N"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "id": "hard-012",
+  "width": 9,
+  "height": 11,
+  "cells": [
+    {
+      "type": "clue",
+      "direction": "DOWN",
+      "answerLength": 7,
+      "text": "Haydutluk, soygunculuk"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "Ş"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "E"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "K"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "A"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "V"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "E"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "T"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    }
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "id": "hard-008",
+  "width": 9,
+  "height": 11,
+  "cells": [
+    {
+      "type": "clue",
+      "direction": "DOWN",
+      "answerLength": 8,
+      "text": "Bitter, sütlü, fındıklı gibi türleri olan yiyecek"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "Ç"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "İ"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "K"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "O"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "L"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "A"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "T"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "A"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    }
+  ]
+}

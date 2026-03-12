@@ -1,0 +1,48 @@
+{
+  "id": "easy-011",
+  "width": 5,
+  "height": 7,
+  "cells": [
+    {"type": "block"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Kar"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Bulmak için bak"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Tren yolu"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Erkek adı"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Koyu renk"},
+    {"type": "letter", "solution": "K"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "A"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "L"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "Y"},
+    {"type": "letter", "solution": "I"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Deniz taşıtı"},
+    {"type": "letter", "solution": "G"},
+    {"type": "letter", "solution": "E"},
+    {"type": "letter", "solution": "M"},
+    {"type": "letter", "solution": "I"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
+  ]
+}

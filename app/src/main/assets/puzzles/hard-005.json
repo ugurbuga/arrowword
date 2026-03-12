@@ -1,0 +1,315 @@
+{
+  "id": "hard-005",
+  "width": 9,
+  "height": 11,
+  "cells": [
+    {
+      "type": "clue",
+      "direction": "DOWN",
+      "answerLength": 8,
+      "text": "İskendere sos olarak dökülen hayvansal gıda"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "T"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "E"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "R"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "E"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "Y"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "A"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "Ğ"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "letter",
+      "solution": "I"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    },
+    {
+      "type": "block"
+    }
+  ]
+}

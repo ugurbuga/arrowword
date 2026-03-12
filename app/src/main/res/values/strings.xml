@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Arrowword</string>
+    <string name="top_app_bar_title_home">Arrowword</string>
+    <string name="level_select_title">Seviye Seç</string>
+    <string name="difficulty_easy">Kolay</string>
+    <string name="difficulty_medium">Orta</string>
+    <string name="difficulty_hard">Zor</string>
+    <string name="levels_section_title">Seviyeler</string>
+    <string name="level_item_title">Seviye %1$d</string>
+    <string name="top_app_bar_level_title">Seviye %1$s</string>
+    <string name="back">Geri</string>
+    <string name="enter_letter_title">Harf Gir</string>
+    <string name="enter_letter_hint">Harf</string>
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+    <string name="clues_title">İpuçları</string>
+    <string name="clue_dialog_title">İpucu</string>
+    <string name="direction_right">Sağ</string>
+    <string name="direction_down">Aşağı</string>
+    <string name="level_completed">Tebrikler! Seviye tamamlandı.</string>
+    <string name="congrats_dialog_title">Tebrikler</string>
+    <string name="congrats_dialog_message">Tüm soruları doğru cevapladın.</string>
+    <string name="next_level">Sonraki</string>
+    <string name="clue_marker_right">&gt;</string>
+    <string name="clue_marker_down">v</string>
+    <string name="level_completed_tick">✓</string>
+</resources>

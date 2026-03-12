@@ -1,0 +1,48 @@
+{
+  "id": "easy-007",
+  "width": 5,
+  "height": 7,
+  "cells": [
+    {"type": "block"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Gizli bilgi"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Dede"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Tren yolu"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Ilı"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Sarı"},
+    {"type": "letter", "solution": "S"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "I"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "I"},
+    {"type": "letter", "solution": "T"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "L"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "Y"},
+    {"type": "letter", "solution": "I"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Evet"},
+    {"type": "letter", "solution": "E"},
+    {"type": "letter", "solution": "V"},
+    {"type": "letter", "solution": "E"},
+    {"type": "letter", "solution": "T"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "easy-002",
+  "width": 5,
+  "height": 7,
+  "cells": [
+    {"type": "block"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Gizli bilgi"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 4, "text": "Koku"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Oda"},
+    {"type": "clue", "direction": "DOWN", "answerLength": 4, "text": "Renk"},
+
+    {"type": "clue", "direction": "RIGHT", "answerLength": 4, "text": "Maç sonucu"},
+    {"type": "letter", "solution": "S"},
+    {"type": "letter", "solution": "K"},
+    {"type": "letter", "solution": "O"},
+    {"type": "letter", "solution": "R"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "I"},
+    {"type": "letter", "solution": "O"},
+    {"type": "letter", "solution": "D"},
+    {"type": "letter", "solution": "E"},
+
+    {"type": "block"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "K"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "N"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "letter", "solution": "U"},
+    {"type": "block"},
+    {"type": "letter", "solution": "K"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
+  ]
+}

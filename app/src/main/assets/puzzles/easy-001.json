@@ -1,0 +1,48 @@
+{
+  "id": "easy-001",
+  "width": 5,
+  "height": 7,
+  "cells": [
+    {"type": "block"},
+    {"type": "clue", "direction": "RIGHT", "answerLength": 3, "text": "Gizli bilgi"},
+    {"type": "letter", "solution": "S"},
+    {"type": "letter", "solution": "I"},
+    {"type": "letter", "solution": "R"},
+
+    {"type": "clue", "direction": "DOWN", "answerLength": 4, "text": "Toprağı kazarak çıkarma"},
+    {"type": "clue", "direction": "RIGHT", "answerLength": 3, "text": "Bulmak için bak"},
+    {"type": "letter", "solution": "A"},
+    {"type": "letter", "solution": "R"},
+    {"type": "letter", "solution": "A"},
+
+    {"type": "letter", "solution": "K"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "A"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "Z"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "I"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
+  ]
+}
