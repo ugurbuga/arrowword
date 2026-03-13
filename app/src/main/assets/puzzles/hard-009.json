@@ -3,312 +3,114 @@
   "width": 9,
   "height": 11,
   "cells": [
-    {
-      "type": "clue",
-      "direction": "DOWN",
-      "answerLength": 7,
-      "text": "Eski adı Meğri olan turistik Muğla ilçesi"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "F"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "E"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "T"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "H"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "I"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "Y"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "E"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    }
+    {"type": "clue", "direction": "DOWN", "answerLength": 7, "text": "Eski adı Meğri olan turistik Muğla ilçesi"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "F"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "E"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "T"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "H"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "I"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "Y"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "E"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
   ]
 }

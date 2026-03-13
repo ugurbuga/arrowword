@@ -3,314 +3,114 @@
   "width": 9,
   "height": 11,
   "cells": [
-    {
-      "type": "clue",
-      "direction": "DOWN",
-      "answerLength": 9,
-      "text": "Unutkanlık hastalığı"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "A"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "L"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "Z"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "H"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "E"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "I"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "M"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "E"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "R"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    }
+    {"type": "clue", "direction": "DOWN", "answerLength": 9, "text": "Unutkanlık hastalığı"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "A"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "L"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "Z"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "H"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "E"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "I"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "M"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "E"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "R"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
   ]
 }

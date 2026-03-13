@@ -3,313 +3,114 @@
   "width": 9,
   "height": 11,
   "cells": [
-    {
-      "type": "clue",
-      "direction": "DOWN",
-      "answerLength": 8,
-      "text": "İki nokta arasına kurulan halatlı taşıma sistemi"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "V"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "A"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "R"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "A"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "G"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "E"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "L"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "letter",
-      "solution": "E"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    },
-    {
-      "type": "block"
-    }
+    {"type": "clue", "direction": "DOWN", "answerLength": 8, "text": "İki nokta arasına kurulan halatlı taşıma sistemi"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "V"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "A"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "R"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "A"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "G"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "E"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "L"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "letter", "solution": "E"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"},
+    {"type": "block"}
   ]
 }

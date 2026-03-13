@@ -4,6 +4,7 @@
   "height": 7,
   "cells": [
     {"type": "block"},
+
     {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Kar"},
     {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Yankı"},
     {"type": "clue", "direction": "DOWN", "answerLength": 3, "text": "Dur"},
