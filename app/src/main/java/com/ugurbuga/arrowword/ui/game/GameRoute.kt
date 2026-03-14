@@ -5,8 +5,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.ugurbuga.arrowword.domain.repository.GeneratedPuzzleRepository
 import com.ugurbuga.arrowword.domain.repository.PuzzleRepository
 import com.ugurbuga.arrowword.domain.repository.ProgressRepository
+import com.ugurbuga.arrowword.domain.repository.WordRepository
 import com.ugurbuga.arrowword.ui.navigation.Routes
 
 object GameRoute {
@@ -21,6 +23,8 @@ fun GameRoute(
     levelId: String,
     puzzleRepository: PuzzleRepository,
     progressRepository: ProgressRepository,
+    wordRepository: WordRepository,
+    generatedPuzzleRepository: GeneratedPuzzleRepository,
     onNavigateBack: () -> Unit,
     onNavigateToLevel: (String) -> Unit,
 ) {
@@ -29,6 +33,8 @@ fun GameRoute(
             levelId = levelId,
             puzzleRepository = puzzleRepository,
             progressRepository = progressRepository,
+            wordRepository = wordRepository,
+            generatedPuzzleRepository = generatedPuzzleRepository,
         ),
     )
 

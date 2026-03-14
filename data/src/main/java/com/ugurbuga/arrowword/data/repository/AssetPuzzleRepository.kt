@@ -2,9 +2,7 @@ package com.ugurbuga.arrowword.data.repository
 
 import android.content.Context
 import com.ugurbuga.arrowword.domain.model.Cell
-import com.ugurbuga.arrowword.domain.model.Difficulty
 import com.ugurbuga.arrowword.domain.model.Direction
-import com.ugurbuga.arrowword.domain.model.LevelSummary
 import com.ugurbuga.arrowword.domain.model.Puzzle
 import com.ugurbuga.arrowword.domain.repository.PuzzleRepository
 import org.json.JSONArray
@@ -13,27 +11,6 @@ import org.json.JSONObject
 class AssetPuzzleRepository(
     private val context: Context,
 ) : PuzzleRepository {
-
-    override suspend fun getLevelSummaries(difficulty: Difficulty): List<LevelSummary> {
-        val indexJson = readAssetAsString("puzzles/index.json")
-        val root = JSONObject(indexJson)
-        val levels = root.getJSONArray("levels")
-
-        val summaries = mutableListOf<LevelSummary>()
-        for (i in 0 until levels.length()) {
-            val level = levels.getJSONObject(i)
-            val levelDifficulty = Difficulty.valueOf(level.getString("difficulty"))
-            if (levelDifficulty != difficulty) continue
-
-            summaries += LevelSummary(
-                id = level.getString("id"),
-                difficulty = levelDifficulty,
-                order = level.getInt("order"),
-            )
-        }
-
-        return summaries.sortedBy { it.order }
-    }
 
     override suspend fun getPuzzle(levelId: String): Puzzle {
         val indexJson = readAssetAsString("puzzles/index.json")

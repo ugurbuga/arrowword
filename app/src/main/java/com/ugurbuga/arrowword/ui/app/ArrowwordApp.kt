@@ -24,8 +24,9 @@ fun ArrowwordApp() {
     ) {
         composable(LevelSelectRoute.route) {
             LevelSelectRoute(
-                puzzleRepository = appGraph.puzzleRepository,
                 progressRepository = appGraph.progressRepository,
+                wordRepository = appGraph.wordRepository,
+                generatedPuzzleRepository = appGraph.generatedPuzzleRepository,
                 onNavigateToGame = { levelId ->
                     navController.navigate(GameRoute.createRoute(levelId))
                 },
@@ -43,6 +44,8 @@ fun ArrowwordApp() {
                 levelId = levelId,
                 puzzleRepository = appGraph.puzzleRepository,
                 progressRepository = appGraph.progressRepository,
+                wordRepository = appGraph.wordRepository,
+                generatedPuzzleRepository = appGraph.generatedPuzzleRepository,
                 onNavigateBack = { navController.popBackStack() },
                 onNavigateToLevel = { nextLevelId ->
                     navController.navigate(GameRoute.createRoute(nextLevelId)) {

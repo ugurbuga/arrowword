@@ -5,19 +5,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.ugurbuga.arrowword.domain.repository.PuzzleRepository
+import com.ugurbuga.arrowword.domain.repository.GeneratedPuzzleRepository
 import com.ugurbuga.arrowword.domain.repository.ProgressRepository
+import com.ugurbuga.arrowword.domain.repository.WordRepository
 
 @Composable
 fun LevelSelectRoute(
-    puzzleRepository: PuzzleRepository,
     progressRepository: ProgressRepository,
+    wordRepository: WordRepository,
+    generatedPuzzleRepository: GeneratedPuzzleRepository,
     onNavigateToGame: (String) -> Unit,
 ) {
     val viewModel: LevelSelectViewModel = viewModel(
         factory = LevelSelectViewModel.factory(
-            puzzleRepository = puzzleRepository,
             progressRepository = progressRepository,
+            wordRepository = wordRepository,
+            generatedPuzzleRepository = generatedPuzzleRepository,
         ),
     )
 

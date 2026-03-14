@@ -3,10 +3,13 @@ package com.ugurbuga.arrowword.ui.levelselect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.ugurbuga.arrowword.domain.model.Difficulty
-import com.ugurbuga.arrowword.domain.model.LevelSummary
-import com.ugurbuga.arrowword.domain.repository.PuzzleRepository
+import com.ugurbuga.arrowword.domain.model.GeneratedPuzzleSize
+import com.ugurbuga.arrowword.domain.repository.GeneratedPuzzleRepository
 import com.ugurbuga.arrowword.domain.repository.ProgressRepository
+import com.ugurbuga.arrowword.domain.repository.WordRepository
+import com.ugurbuga.arrowword.domain.usecase.GenerateCrossPuzzleUseCase
+import com.ugurbuga.arrowword.domain.usecase.GenerateRandomLevelIdUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,11 +17,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
 
 class LevelSelectViewModel(
-    private val puzzleRepository: PuzzleRepository,
     private val progressRepository: ProgressRepository,
+    private val wordRepository: WordRepository,
+    private val generatedPuzzleRepository: GeneratedPuzzleRepository,
+    private val generateRandomLevelIdUseCase: GenerateRandomLevelIdUseCase = GenerateRandomLevelIdUseCase(),
+    private val generateCrossPuzzleUseCase: GenerateCrossPuzzleUseCase = GenerateCrossPuzzleUseCase(),
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LevelSelectUiState())
@@ -28,71 +35,65 @@ class LevelSelectViewModel(
     val viewEvents = _viewEvents.asSharedFlow()
 
     init {
-        loadLevels()
+        loadStats()
     }
 
     fun onAction(action: LevelSelectAction) {
         when (action) {
-            is LevelSelectAction.SelectDifficulty -> {
-                _uiState.value = _uiState.value.copy(selectedDifficulty = action.difficulty)
-                loadLevels()
-            }
-
-            is LevelSelectAction.SelectLevel -> {
-                val item = _uiState.value.levels.firstOrNull { it.id == action.levelId } ?: return
-                if (!item.isEnabled) return
+            LevelSelectAction.RandomPuzzle -> {
                 viewModelScope.launch {
-                    _viewEvents.emit(LevelSelectViewEvent.NavigateToGame(levelId = action.levelId))
+                    if (_uiState.value.isLoading) return@launch
+
+                    _uiState.value = _uiState.value.copy(isLoading = true)
+                    val size = GeneratedPuzzleSize.entries.random()
+                    val levelId = generateRandomLevelIdUseCase.generate()
+
+                    try {
+                        val words = withContext(Dispatchers.IO) { wordRepository.getWords() }
+
+                        val puzzle = withContext(Dispatchers.Default) {
+                            generateCrossPuzzleUseCase.generate(
+                                levelId = levelId,
+                                width = size.width,
+                                height = size.height,
+                                words = words,
+                            )
+                        }
+
+                        generatedPuzzleRepository.put(puzzle)
+                        _viewEvents.emit(LevelSelectViewEvent.NavigateToGame(levelId = levelId))
+                    } finally {
+                        _uiState.value = _uiState.value.copy(isLoading = false)
+                    }
                 }
             }
         }
     }
 
-    private fun loadLevels() {
-        val difficulty = _uiState.value.selectedDifficulty
+    private fun loadStats() {
         viewModelScope.launch {
-            val summaries = puzzleRepository.getLevelSummaries(difficulty)
-            val items = summaries
-                .sortedBy { it.order }
-                .map { summary ->
-                    val completed = progressRepository.getProgress(summary.id)?.isCompleted ?: false
-                    LevelSelectItem(
-                        id = summary.id,
-                        order = summary.order,
-                        isCompleted = completed,
-                        isEnabled = true,
-                    )
-                }
+            val completed = progressRepository.getGeneratedCompletedCount()
 
-            val enabledItems = computeEnabledItems(items)
-            _uiState.value = _uiState.value.copy(levels = enabledItems)
+            _uiState.value = _uiState.value.copy(
+                completedCount = completed,
+            )
         }
-    }
-
-    private fun computeEnabledItems(items: List<LevelSelectItem>): List<LevelSelectItem> {
-        if (items.isEmpty()) return items
-
-        val result = ArrayList<LevelSelectItem>(items.size)
-        for (i in items.indices) {
-            val prevCompleted = if (i == 0) true else items[i - 1].isCompleted
-            val enabled = items[i].isCompleted || prevCompleted
-            result += items[i].copy(isEnabled = enabled)
-        }
-        return result
     }
 
     companion object {
         fun factory(
-            puzzleRepository: PuzzleRepository,
             progressRepository: ProgressRepository,
+            wordRepository: WordRepository,
+            generatedPuzzleRepository: GeneratedPuzzleRepository,
         ): ViewModelProvider.Factory {
             return object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     if (modelClass.isAssignableFrom(LevelSelectViewModel::class.java)) {
                         @Suppress("UNCHECKED_CAST")
                         return LevelSelectViewModel(
-                            puzzleRepository = puzzleRepository,
                             progressRepository = progressRepository,
+                            wordRepository = wordRepository,
+                            generatedPuzzleRepository = generatedPuzzleRepository,
                         ) as T
                     }
                     throw IllegalArgumentException("Unknown ViewModel class")
@@ -103,20 +104,12 @@ class LevelSelectViewModel(
 }
 
 data class LevelSelectUiState(
-    val selectedDifficulty: Difficulty = Difficulty.EASY,
-    val levels: List<LevelSelectItem> = emptyList(),
-)
-
-data class LevelSelectItem(
-    val id: String,
-    val order: Int,
-    val isCompleted: Boolean,
-    val isEnabled: Boolean,
+    val completedCount: Int = 0,
+    val isLoading: Boolean = false,
 )
 
 sealed interface LevelSelectAction {
-    data class SelectDifficulty(val difficulty: Difficulty) : LevelSelectAction
-    data class SelectLevel(val levelId: String) : LevelSelectAction
+    object RandomPuzzle : LevelSelectAction
 }
 
 sealed interface LevelSelectViewEvent {

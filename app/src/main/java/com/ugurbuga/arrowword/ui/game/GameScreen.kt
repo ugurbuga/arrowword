@@ -21,6 +21,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -32,10 +33,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.Modifier
@@ -44,16 +45,16 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import android.view.KeyEvent
+import androidx.compose.foundation.layout.Row
 import com.ugurbuga.arrowword.R
 import com.ugurbuga.arrowword.domain.model.Cell
 import com.ugurbuga.arrowword.domain.model.Direction
@@ -61,8 +62,9 @@ import com.ugurbuga.arrowword.ui.theme.ArrowwordTheme
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.compose.foundation.layout.Row
+import java.util.Locale
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
@@ -80,7 +82,7 @@ fun GameScreen(
 
     var keyboardBuffer by remember { mutableStateOf("") }
     var isCongratsDialogOpen by remember { mutableStateOf(false) }
-    var clueDialogText by remember { mutableStateOf<String?>(null) }
+    var clueTooltipText by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(state.isCompleted) {
         if (state.isCompleted) {
@@ -96,15 +98,21 @@ fun GameScreen(
         }
     }
 
+    LaunchedEffect(clueTooltipText) {
+        if (clueTooltipText != null) {
+            delay(1500)
+            clueTooltipText = null
+        }
+    }
+
     GameScreenDialogs(
         isCongratsDialogOpen = isCongratsDialogOpen,
         onDismissCongrats = { isCongratsDialogOpen = false },
+        isLoading = state.isLoading,
         onNextLevel = {
             isCongratsDialogOpen = false
             onAction(GameAction.NextLevel)
         },
-        clueDialogText = clueDialogText,
-        onDismissClue = { clueDialogText = null },
     )
 
     GameScaffold(
@@ -124,6 +132,45 @@ fun GameScreen(
                     )
                 },
         ) {
+            if (state.isLoading) {
+                Surface(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(16.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.surface,
+                    tonalElevation = 6.dp,
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        CircularProgressIndicator(strokeWidth = 2.dp)
+                        Text(text = stringResource(R.string.loading))
+                    }
+                }
+            }
+
+            if (clueTooltipText != null) {
+                Surface(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = 12.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.inverseSurface,
+                ) {
+                    Text(
+                        text = clueTooltipText ?: "",
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                        color = MaterialTheme.colorScheme.inverseOnSurface,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -175,6 +222,22 @@ fun GameScreen(
                             verticalArrangement = Arrangement.spacedBy(4.dp),
                             modifier = Modifier.fillMaxWidth(),
                         ) {
+                            state.selectedClueText?.let { clueText ->
+                                Surface(
+                                    shape = RoundedCornerShape(12.dp),
+                                    color = MaterialTheme.colorScheme.secondaryContainer,
+                                ) {
+                                    Text(
+                                        text = clueText,
+                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        maxLines = 3,
+                                        overflow = TextOverflow.Ellipsis,
+                                    )
+                                }
+                            }
+
                             for (row in 0 until puzzle.height) {
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
@@ -194,6 +257,7 @@ fun GameScreen(
                                             inActiveWord = inActiveWord,
                                             solved = isSolvedLetter,
                                             onClick = {
+                                                if (state.isLoading) return@PuzzleCell
                                                 when (cell) {
                                                     is Cell.Letter -> {
                                                         onAction(GameAction.SelectCell(index))
@@ -202,7 +266,7 @@ fun GameScreen(
                                                     }
 
                                                     is Cell.Clue -> {
-                                                        clueDialogText = cell.text
+                                                        clueTooltipText = cell.text
                                                         focusManager.clearFocus(force = true)
                                                         keyboardController?.hide()
                                                     }
@@ -220,20 +284,6 @@ fun GameScreen(
                                     }
                                 }
                             }
-                        }
-                    }
-
-                    Text(
-                        text = stringResource(R.string.clues_title),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-
-                    val clues = puzzle.cells.filterIsInstance<Cell.Clue>()
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        for (clue in clues) {
-                            Text(text = clue.text)
                         }
                     }
                 }
@@ -274,9 +324,8 @@ private fun GameScaffold(
 private fun GameScreenDialogs(
     isCongratsDialogOpen: Boolean,
     onDismissCongrats: () -> Unit,
+    isLoading: Boolean,
     onNextLevel: () -> Unit,
-    clueDialogText: String?,
-    onDismissClue: () -> Unit,
 ) {
     if (isCongratsDialogOpen) {
         AlertDialog(
@@ -284,26 +333,13 @@ private fun GameScreenDialogs(
             title = { Text(text = stringResource(R.string.congrats_dialog_title)) },
             text = { Text(text = stringResource(R.string.congrats_dialog_message)) },
             confirmButton = {
-                TextButton(onClick = onNextLevel) {
+                TextButton(onClick = onNextLevel, enabled = !isLoading) {
                     Text(text = stringResource(R.string.next_level))
                 }
             },
             dismissButton = {
-                TextButton(onClick = onDismissCongrats) {
+                TextButton(onClick = onDismissCongrats, enabled = !isLoading) {
                     Text(text = stringResource(R.string.cancel))
-                }
-            },
-        )
-    }
-
-    if (clueDialogText != null) {
-        AlertDialog(
-            onDismissRequest = onDismissClue,
-            title = { Text(text = stringResource(R.string.clue_dialog_title)) },
-            text = { Text(text = clueDialogText) },
-            confirmButton = {
-                TextButton(onClick = onDismissClue) {
-                    Text(text = stringResource(R.string.ok))
                 }
             },
         )
@@ -320,6 +356,8 @@ private fun PuzzleCell(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val trLocale = Locale("tr", "TR")
+
     val bgColor = when (cell) {
         is Cell.Block -> Color.DarkGray
         is Cell.Clue -> MaterialTheme.colorScheme.tertiaryContainer
@@ -364,7 +402,7 @@ private fun PuzzleCell(
                     Direction.DOWN -> stringResource(R.string.clue_marker_down)
                 }
 
-                val clueStyle: TextStyle = when {
+                val clueStyle: androidx.compose.ui.text.TextStyle = when {
                     cell.text.length <= 18 -> MaterialTheme.typography.labelSmall
                     cell.text.length <= 32 -> MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp)
                     else -> MaterialTheme.typography.labelSmall.copy(fontSize = 8.sp)
@@ -395,7 +433,11 @@ private fun PuzzleCell(
             }
 
             is Cell.Letter -> {
-                val shown = if (entered == null || entered == '\u0000') "" else entered.toString()
+                val shown = if (entered == null || entered == '\u0000') {
+                    ""
+                } else {
+                    entered.toString().uppercase(trLocale)
+                }
                 Box(
                     modifier = Modifier.matchParentSize(),
                     contentAlignment = Alignment.Center,

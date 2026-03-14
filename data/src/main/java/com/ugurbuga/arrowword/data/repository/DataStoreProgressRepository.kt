@@ -3,6 +3,7 @@ package com.ugurbuga.arrowword.data.repository
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.ugurbuga.arrowword.domain.model.LevelProgress
@@ -44,6 +45,18 @@ class DataStoreProgressRepository(
         }
     }
 
+     override suspend fun getGeneratedCompletedCount(): Int {
+         val preferences = context.progressDataStore.data.first()
+         return preferences[generatedCompletedCountKey()] ?: 0
+     }
+
+     override suspend fun incrementGeneratedCompletedCount() {
+         context.progressDataStore.edit { prefs ->
+             val current = prefs[generatedCompletedCountKey()] ?: 0
+             prefs[generatedCompletedCountKey()] = current + 1
+         }
+     }
+
     private fun serialize(progress: LevelProgress): String {
         return progress.entries + "|" + progress.isCompleted
     }
@@ -51,4 +64,8 @@ class DataStoreProgressRepository(
     private fun progressKey(levelId: String): Preferences.Key<String> {
         return stringPreferencesKey("progress_" + levelId)
     }
+
+     private fun generatedCompletedCountKey(): Preferences.Key<Int> {
+         return intPreferencesKey("generated_completed_count")
+     }
 }

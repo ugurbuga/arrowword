@@ -4,30 +4,46 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.ugurbuga.arrowword.domain.model.Cell
-import com.ugurbuga.arrowword.domain.model.Difficulty
 import com.ugurbuga.arrowword.domain.model.Direction
+import com.ugurbuga.arrowword.domain.model.GeneratedPuzzleSize
 import com.ugurbuga.arrowword.domain.model.LevelProgress
 import com.ugurbuga.arrowword.domain.model.Puzzle
+import com.ugurbuga.arrowword.domain.repository.GeneratedPuzzleRepository
 import com.ugurbuga.arrowword.domain.repository.PuzzleRepository
 import com.ugurbuga.arrowword.domain.repository.ProgressRepository
+import com.ugurbuga.arrowword.domain.repository.WordRepository
+import com.ugurbuga.arrowword.domain.usecase.GenerateCrossPuzzleUseCase
+import com.ugurbuga.arrowword.domain.usecase.GenerateRandomLevelIdUseCase
+import java.util.Locale
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GameViewModel(
     private val levelId: String,
     private val puzzleRepository: PuzzleRepository,
     private val progressRepository: ProgressRepository,
+    private val wordRepository: WordRepository,
+    private val generatedPuzzleRepository: GeneratedPuzzleRepository,
 ) : ViewModel() {
+
+    private val generateCrossPuzzleUseCase = GenerateCrossPuzzleUseCase()
+    private val generateRandomLevelIdUseCase = GenerateRandomLevelIdUseCase()
 
     private val _uiState = MutableStateFlow(GameUiState())
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
 
     private val _viewEvents = MutableSharedFlow<GameViewEvent>()
     val viewEvents = _viewEvents.asSharedFlow()
+
+     private val trLocale = Locale("tr", "TR")
+
+     private var generatedCompletionCounted: Boolean = false
 
     init {
         loadPuzzle()
@@ -89,7 +105,17 @@ class GameViewModel(
 
             val completed = progress?.isCompleted ?: isSolved(puzzle, entries)
 
+            generatedCompletionCounted = progress?.isCompleted == true
+
             val solvedInfo = computeSolvedInfo(puzzle = puzzle, entries = entries)
+
+            val initialSelectedIndex = firstLetterIndex(puzzle) ?: 0
+            val initialDirection = Direction.RIGHT
+            val initialClueText = computeSelectedClueText(
+                puzzle = puzzle,
+                selectedIndex = initialSelectedIndex,
+                direction = initialDirection,
+            )
 
             _uiState.value = _uiState.value.copy(
                 levelId = levelId,
@@ -98,8 +124,9 @@ class GameViewModel(
                 isCompleted = completed,
                 solvedClueIndices = solvedInfo.solvedClueIndices,
                 solvedLetterIndices = solvedInfo.solvedLetterIndices,
-                selectedIndex = firstLetterIndex(puzzle) ?: 0,
-                selectedDirection = Direction.RIGHT,
+                selectedIndex = initialSelectedIndex,
+                selectedDirection = initialDirection,
+                selectedClueText = initialClueText,
             ).let { state ->
                 state.copy(activeWordIndices = computeActiveWordIndices(state))
             }
@@ -175,6 +202,11 @@ class GameViewModel(
         _uiState.value = currentState.copy(
             selectedIndex = index,
             selectedDirection = preferredDirection,
+            selectedClueText = computeSelectedClueText(
+                puzzle = puzzle,
+                selectedIndex = index,
+                direction = preferredDirection,
+            ),
         ).let { it.copy(activeWordIndices = computeActiveWordIndices(it)) }
     }
 
@@ -184,10 +216,20 @@ class GameViewModel(
         if (index !in puzzle.cells.indices) return
         if (puzzle.cells[index] !is Cell.Letter) return
 
+         fun normalizeChar(c: Char): Char {
+             val s = c.toString().uppercase(trLocale)
+             return s.firstOrNull() ?: c
+         }
+
         val newEntries = _uiState.value.entries.copyOf()
-        newEntries[index] = char.uppercaseChar()
+        newEntries[index] = normalizeChar(char)
 
         val solved = isSolved(puzzle, newEntries)
+
+        if (solved && !generatedCompletionCounted && levelId.startsWith("generated-")) {
+            generatedCompletionCounted = true
+            viewModelScope.launch { progressRepository.incrementGeneratedCompletedCount() }
+        }
 
         val solvedInfo = computeSolvedInfo(puzzle = puzzle, entries = newEntries)
 
@@ -197,6 +239,11 @@ class GameViewModel(
         )
 
         val nextSelected = nextIndex ?: index
+        val nextClueText = computeSelectedClueText(
+            puzzle = puzzle,
+            selectedIndex = nextSelected,
+            direction = _uiState.value.selectedDirection,
+        )
 
         _uiState.value = _uiState.value.copy(
             entries = newEntries,
@@ -204,6 +251,7 @@ class GameViewModel(
             solvedClueIndices = solvedInfo.solvedClueIndices,
             solvedLetterIndices = solvedInfo.solvedLetterIndices,
             selectedIndex = nextSelected,
+            selectedClueText = nextClueText,
         ).let { it.copy(activeWordIndices = computeActiveWordIndices(it)) }
 
         saveProgressIfReady()
@@ -211,23 +259,28 @@ class GameViewModel(
 
     private fun onNextLevel() {
         viewModelScope.launch {
-            val nextId = findNextLevelId(levelId) ?: return@launch
-            _viewEvents.emit(GameViewEvent.NavigateToLevel(levelId = nextId))
-        }
-    }
+            _uiState.value = _uiState.value.copy(isLoading = true)
+            val size = GeneratedPuzzleSize.entries.random()
+            val nextLevelId = generateRandomLevelIdUseCase.generate()
 
-    private suspend fun findNextLevelId(currentLevelId: String): String? {
-        val difficulty = when {
-            currentLevelId.startsWith("easy-") -> Difficulty.EASY
-            currentLevelId.startsWith("medium-") -> Difficulty.MEDIUM
-            currentLevelId.startsWith("hard-") -> Difficulty.HARD
-            else -> return null
-        }
+            try {
+                val words = withContext(Dispatchers.IO) { wordRepository.getWords() }
 
-        val levels = puzzleRepository.getLevelSummaries(difficulty)
-        val current = levels.firstOrNull { it.id == currentLevelId } ?: return null
-        val next = levels.firstOrNull { it.order == current.order + 1 }
-        return next?.id
+                val puzzle = withContext(Dispatchers.Default) {
+                    generateCrossPuzzleUseCase.generate(
+                        levelId = nextLevelId,
+                        width = size.width,
+                        height = size.height,
+                        words = words,
+                    )
+                }
+
+                generatedPuzzleRepository.put(puzzle)
+                _viewEvents.emit(GameViewEvent.NavigateToLevel(levelId = nextLevelId))
+            } finally {
+                _uiState.value = _uiState.value.copy(isLoading = false)
+            }
+        }
     }
 
     private fun onBackspace() {
@@ -246,6 +299,11 @@ class GameViewModel(
                 isCompleted = false,
                 solvedClueIndices = solvedInfo.solvedClueIndices,
                 solvedLetterIndices = solvedInfo.solvedLetterIndices,
+                selectedClueText = computeSelectedClueText(
+                    puzzle = puzzle,
+                    selectedIndex = index,
+                    direction = _uiState.value.selectedDirection,
+                ),
             )
         } else {
             val previousIndex = findPreviousIndex(
@@ -262,6 +320,11 @@ class GameViewModel(
                     isCompleted = false,
                     solvedClueIndices = solvedInfo.solvedClueIndices,
                     solvedLetterIndices = solvedInfo.solvedLetterIndices,
+                    selectedClueText = computeSelectedClueText(
+                        puzzle = puzzle,
+                        selectedIndex = previousIndex,
+                        direction = _uiState.value.selectedDirection,
+                    ),
                 ).let { it.copy(activeWordIndices = computeActiveWordIndices(it)) }
             }
         }
@@ -359,6 +422,21 @@ class GameViewModel(
         return best
     }
 
+    private fun computeSelectedClueText(
+        puzzle: Puzzle,
+        selectedIndex: Int,
+        direction: Direction,
+    ): String? {
+        if (selectedIndex !in puzzle.cells.indices) return null
+        if (puzzle.cells[selectedIndex] !is Cell.Letter) return null
+        val clue = findCoveringClue(
+            puzzle = puzzle,
+            selectedIndex = selectedIndex,
+            direction = direction,
+        )
+        return clue?.cell?.text
+    }
+
     private fun computeAnswerIndices(
         puzzle: Puzzle,
         clueIndex: Int,
@@ -408,12 +486,17 @@ class GameViewModel(
     private fun isSolved(puzzle: Puzzle, entries: CharArray): Boolean {
         if (entries.size != puzzle.cells.size) return false
 
+         fun normalizeChar(c: Char): Char {
+             val s = c.toString().uppercase(trLocale)
+             return s.firstOrNull() ?: c
+         }
+
         for (i in puzzle.cells.indices) {
             val cell = puzzle.cells[i]
             if (cell is Cell.Letter) {
                 val entered = entries[i]
                 if (entered == '\u0000') return false
-                if (entered.uppercaseChar() != cell.solution.uppercaseChar()) return false
+                if (normalizeChar(entered) != normalizeChar(cell.solution)) return false
             }
         }
         return true
@@ -425,6 +508,11 @@ class GameViewModel(
     )
 
     private fun computeSolvedInfo(puzzle: Puzzle, entries: CharArray): SolvedInfo {
+        fun normalizeChar(c: Char): Char {
+            val s = c.toString().uppercase(trLocale)
+            return s.firstOrNull() ?: c
+        }
+
         val solvedClues = HashSet<Int>()
         val solvedLetters = HashSet<Int>()
 
@@ -443,7 +531,7 @@ class GameViewModel(
                 val isCorrect = indices.all { idx ->
                     val solution = (puzzle.cells[idx] as? Cell.Letter)?.solution ?: return@all false
                     val entered = entries.getOrNull(idx) ?: return@all false
-                    entered != '\u0000' && entered.uppercaseChar() == solution.uppercaseChar()
+                    entered != '\u0000' && normalizeChar(entered) == normalizeChar(solution)
                 }
 
                 if (isCorrect) {
@@ -481,6 +569,8 @@ class GameViewModel(
             levelId: String,
             puzzleRepository: PuzzleRepository,
             progressRepository: ProgressRepository,
+            wordRepository: WordRepository,
+            generatedPuzzleRepository: GeneratedPuzzleRepository,
         ): ViewModelProvider.Factory {
             return object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -490,6 +580,8 @@ class GameViewModel(
                             levelId = levelId,
                             puzzleRepository = puzzleRepository,
                             progressRepository = progressRepository,
+                            wordRepository = wordRepository,
+                            generatedPuzzleRepository = generatedPuzzleRepository,
                         ) as T
                     }
                     throw IllegalArgumentException("Unknown ViewModel class")
@@ -504,9 +596,11 @@ data class GameUiState(
     val puzzle: Puzzle? = null,
     val selectedIndex: Int? = null,
     val selectedDirection: Direction = Direction.RIGHT,
+    val selectedClueText: String? = null,
     val activeWordIndices: List<Int> = emptyList(),
     val entries: CharArray = CharArray(0),
     val isCompleted: Boolean = false,
+    val isLoading: Boolean = false,
     val solvedClueIndices: Set<Int> = emptySet(),
     val solvedLetterIndices: Set<Int> = emptySet(),
 )

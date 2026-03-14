@@ -5,3 +5,6 @@ data class PuzzleData(
     val answerLength: Int,
     val text: String
 )
+
+
+val dataList: List<PuzzleData> = emptyList()

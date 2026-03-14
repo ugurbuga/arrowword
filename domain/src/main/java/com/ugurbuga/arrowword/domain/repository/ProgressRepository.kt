@@ -8,4 +8,8 @@ interface ProgressRepository {
     suspend fun saveProgress(progress: LevelProgress)
 
     suspend fun clearProgress(levelId: String)
+
+    suspend fun getGeneratedCompletedCount(): Int
+
+    suspend fun incrementGeneratedCompletedCount()
 }
