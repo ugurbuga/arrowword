@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Arrow Word</string>
+    <string name="top_app_bar_title_home">Arrow Word</string>
+    <string name="top_app_bar_puzzle_title">%1$d. Bulmaca</string>
+    <string name="back">Geri</string>
+
+    <string name="clue_marker_right">&gt;</string>
+    <string name="clue_marker_down">v</string>
+
+    <string name="play">Oyna</string>
+    <string name="completed_levels">%1$d seviye tamamladım</string>
+    <string name="preparing_puzzle">Bulmaca hazırlanıyor</string>
+
+    <string name="congrats_dialog_title">Tebrikler</string>
+    <string name="congrats_dialog_message">Tüm soruları doğru cevapladın.</string>
+    <string name="next_level">Sonraki</string>
+    <string name="cancel">İptal</string>
+</resources>
