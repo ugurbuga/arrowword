@@ -107,6 +107,9 @@ class GameViewModel(
 
             generatedCompletionCounted = progress?.isCompleted == true
 
+            val generatedCompletedCount = progressRepository.getGeneratedCompletedCount()
+            val puzzleNumber = generatedCompletedCount + 1
+
             val solvedInfo = computeSolvedInfo(puzzle = puzzle, entries = entries)
 
             val initialSelectedIndex = firstLetterIndex(puzzle) ?: 0
@@ -119,6 +122,7 @@ class GameViewModel(
 
             _uiState.value = _uiState.value.copy(
                 levelId = levelId,
+                puzzleNumber = puzzleNumber,
                 puzzle = puzzle,
                 entries = entries,
                 isCompleted = completed,
@@ -593,6 +597,7 @@ class GameViewModel(
 
 data class GameUiState(
     val levelId: String = "",
+    val puzzleNumber: Int = 1,
     val puzzle: Puzzle? = null,
     val selectedIndex: Int? = null,
     val selectedDirection: Direction = Direction.RIGHT,

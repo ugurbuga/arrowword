@@ -6,19 +6,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import com.ugurbuga.arrowword.R
 import com.ugurbuga.arrowword.ui.theme.ArrowwordTheme
 import androidx.compose.material3.Button
@@ -29,6 +30,18 @@ fun LevelSelectScreen(
     state: LevelSelectUiState,
     onAction: (LevelSelectAction) -> Unit,
 ) {
+    if (state.isLoading) {
+        AlertDialog(
+            onDismissRequest = {},
+            text = { Text(text = stringResource(R.string.preparing_puzzle)) },
+            confirmButton = {},
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+            ),
+        )
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -60,12 +73,6 @@ fun LevelSelectScreen(
                 enabled = !state.isLoading,
                 onClick = { onAction(LevelSelectAction.RandomPuzzle) },
             ) {
-                if (state.isLoading) {
-                    CircularProgressIndicator(
-                        strokeWidth = 2.dp,
-                        modifier = Modifier.padding(end = 12.dp),
-                    )
-                }
                 Text(text = stringResource(R.string.play))
             }
         }

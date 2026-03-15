@@ -31,6 +31,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,6 +57,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.view.KeyEvent
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.ui.window.DialogProperties
 import com.ugurbuga.arrowword.R
 import com.ugurbuga.arrowword.domain.model.Cell
 import com.ugurbuga.arrowword.domain.model.Direction
@@ -116,7 +121,7 @@ fun GameScreen(
     )
 
     GameScaffold(
-        levelId = state.levelId,
+        puzzleNumber = state.puzzleNumber,
         onNavigateBack = onNavigateBack,
     ) { contentPadding ->
         Box(
@@ -132,26 +137,6 @@ fun GameScreen(
                     )
                 },
         ) {
-            if (state.isLoading) {
-                Surface(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(16.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
-                    tonalElevation = 6.dp,
-                ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    ) {
-                        CircularProgressIndicator(strokeWidth = 2.dp)
-                        Text(text = stringResource(R.string.loading))
-                    }
-                }
-            }
-
             if (clueTooltipText != null) {
                 Surface(
                     modifier = Modifier
@@ -295,7 +280,7 @@ fun GameScreen(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 private fun GameScaffold(
-    levelId: String,
+    puzzleNumber: Int,
     onNavigateBack: () -> Unit,
     content: @Composable (androidx.compose.foundation.layout.PaddingValues) -> Unit,
 ) {
@@ -305,10 +290,13 @@ private fun GameScaffold(
             .statusBarsPadding(),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.top_app_bar_level_title, levelId)) },
+                title = { Text(text = stringResource(R.string.top_app_bar_puzzle_title, puzzleNumber)) },
                 navigationIcon = {
-                    TextButton(onClick = onNavigateBack) {
-                        Text(text = stringResource(R.string.back))
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back),
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -327,6 +315,18 @@ private fun GameScreenDialogs(
     isLoading: Boolean,
     onNextLevel: () -> Unit,
 ) {
+    if (isLoading) {
+        AlertDialog(
+            onDismissRequest = {},
+            text = { Text(text = stringResource(R.string.preparing_puzzle)) },
+            confirmButton = {},
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+            ),
+        )
+    }
+
     if (isCongratsDialogOpen) {
         AlertDialog(
             onDismissRequest = onDismissCongrats,

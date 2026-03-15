@@ -8,6 +8,7 @@
     <string name="levels_section_title">Seviyeler</string>
     <string name="level_item_title">Seviye %1$d</string>
     <string name="top_app_bar_level_title">Seviye %1$s</string>
+    <string name="top_app_bar_puzzle_title">%1$d. Bulmaca</string>
     <string name="back">Geri</string>
     <string name="enter_letter_title">Harf Gir</string>
     <string name="enter_letter_hint">Harf</string>
@@ -29,4 +30,5 @@
     <string name="completed_count">Tamamlanan: %1$d / %2$d</string>
     <string name="completed_levels">%1$d seviye tamamladım</string>
     <string name="loading">Yükleniyor...</string>
+    <string name="preparing_puzzle">Bulmaca hazırlanıyor</string>
 </resources>
