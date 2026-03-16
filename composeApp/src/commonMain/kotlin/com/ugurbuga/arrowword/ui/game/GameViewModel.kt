@@ -56,10 +56,38 @@ class GameViewModel(
     fun onAction(action: GameAction) {
         when (action) {
             is GameAction.SelectCell -> onSelectCell(action.index)
+            is GameAction.SelectClue -> onSelectClue(action.index)
             is GameAction.InputChar -> onInputChar(action.char)
             GameAction.Backspace -> onBackspace()
             GameAction.NextLevel -> onNextLevel()
         }
+    }
+
+    private fun onSelectClue(clueIndex: Int) {
+        val puzzle = _uiState.value.puzzle ?: return
+        if (clueIndex !in puzzle.cells.indices) return
+
+        val clueCell = puzzle.cells[clueIndex] as? Cell.Clue ?: return
+
+        val answerIndices = computeAnswerIndices(
+            puzzle = puzzle,
+            clueIndex = clueIndex,
+            direction = clueCell.direction,
+            answerLength = clueCell.answerLength,
+        )
+        val firstLetterIndex = answerIndices.firstOrNull() ?: return
+
+        val currentState = _uiState.value
+
+        _uiState.value = currentState.copy(
+            selectedIndex = firstLetterIndex,
+            selectedDirection = clueCell.direction,
+            selectedClueText = computeSelectedClueText(
+                puzzle = puzzle,
+                selectedIndex = firstLetterIndex,
+                direction = clueCell.direction,
+            ),
+        ).let { it.copy(activeWordIndices = computeActiveWordIndices(it)) }
     }
 
     private fun normalizePuzzle(puzzle: Puzzle): Puzzle {
@@ -224,7 +252,70 @@ class GameViewModel(
         if (index !in puzzle.cells.indices) return
         if (puzzle.cells[index] !is Cell.Letter) return
 
-        val newEntries = _uiState.value.entries.copyOf()
+        val currentState = _uiState.value
+        val currentEntries = currentState.entries
+        val currentSolvedLetters = currentState.solvedLetterIndices
+
+        fun isCorrectLetter(i: Int, entries: CharArray): Boolean {
+            val cell = puzzle.cells[i] as? Cell.Letter ?: return false
+            val entered = entries.getOrNull(i) ?: return false
+            if (entered == '\u0000') return false
+            return normalizeTrUppercaseChar(entered) == normalizeTrUppercaseChar(cell.solution)
+        }
+
+        fun isLocked(i: Int, entries: CharArray, solvedLetters: Set<Int>): Boolean {
+            return i in solvedLetters && isCorrectLetter(i, entries)
+        }
+
+        fun findNextEditableIndex(state: GameUiState, entries: CharArray, solvedLetters: Set<Int>, fromIndex: Int): Int? {
+            val puzzleLocal = state.puzzle ?: return null
+            val active = state.activeWordIndices
+            val pos = active.indexOf(fromIndex)
+            if (pos < 0) return null
+            for (p in (pos + 1) until active.size) {
+                val candidate = active[p]
+                if (candidate !in puzzleLocal.cells.indices) continue
+                if (puzzleLocal.cells[candidate] !is Cell.Letter) continue
+                if (!isLocked(candidate, entries, solvedLetters)) return candidate
+            }
+            return null
+        }
+
+        fun findPreviousEditableIndex(state: GameUiState, entries: CharArray, solvedLetters: Set<Int>, fromIndex: Int): Int? {
+            val puzzleLocal = state.puzzle ?: return null
+            val active = state.activeWordIndices
+            val pos = active.indexOf(fromIndex)
+            if (pos < 0) return null
+            for (p in (pos - 1) downTo 0) {
+                val candidate = active[p]
+                if (candidate !in puzzleLocal.cells.indices) continue
+                if (puzzleLocal.cells[candidate] !is Cell.Letter) continue
+                if (!isLocked(candidate, entries, solvedLetters)) return candidate
+            }
+            return null
+        }
+
+        if (isLocked(index, currentEntries, currentSolvedLetters)) {
+            val nextEditable = findNextEditableIndex(
+                state = currentState,
+                entries = currentEntries,
+                solvedLetters = currentSolvedLetters,
+                fromIndex = index,
+            )
+            if (nextEditable != null) {
+                _uiState.value = currentState.copy(
+                    selectedIndex = nextEditable,
+                    selectedClueText = computeSelectedClueText(
+                        puzzle = puzzle,
+                        selectedIndex = nextEditable,
+                        direction = currentState.selectedDirection,
+                    ),
+                ).let { it.copy(activeWordIndices = computeActiveWordIndices(it)) }
+            }
+            return
+        }
+
+        val newEntries = currentEntries.copyOf()
         newEntries[index] = normalizeTrUppercaseChar(char)
 
         val solved = isSolved(puzzle, newEntries)
@@ -236,19 +327,19 @@ class GameViewModel(
 
         val solvedInfo = computeSolvedInfo(puzzle = puzzle, entries = newEntries)
 
-        val nextIndex = findNextIndex(
-            state = _uiState.value,
+        val nextSelected = findNextEditableIndex(
+            state = currentState,
+            entries = newEntries,
+            solvedLetters = solvedInfo.solvedLetterIndices,
             fromIndex = index,
-        )
-
-        val nextSelected = nextIndex ?: index
+        ) ?: index
         val nextClueText = computeSelectedClueText(
             puzzle = puzzle,
             selectedIndex = nextSelected,
-            direction = _uiState.value.selectedDirection,
+            direction = currentState.selectedDirection,
         )
 
-        _uiState.value = _uiState.value.copy(
+        _uiState.value = currentState.copy(
             entries = newEntries,
             isCompleted = solved,
             solvedClueIndices = solvedInfo.solvedClueIndices,
@@ -292,12 +383,66 @@ class GameViewModel(
         if (index !in puzzle.cells.indices) return
         if (puzzle.cells[index] !is Cell.Letter) return
 
-        val current = _uiState.value.entries
+        val currentState = _uiState.value
+        val current = currentState.entries
         val newEntries = current.copyOf()
+
+        fun isCorrectLetter(i: Int, entries: CharArray): Boolean {
+            val cell = puzzle.cells[i] as? Cell.Letter ?: return false
+            val entered = entries.getOrNull(i) ?: return false
+            if (entered == '\u0000') return false
+            return normalizeTrUppercaseChar(entered) == normalizeTrUppercaseChar(cell.solution)
+        }
+
+        fun isLocked(i: Int, entries: CharArray): Boolean {
+            return i in currentState.solvedLetterIndices && isCorrectLetter(i, entries)
+        }
+
+        fun findPreviousEditableIndex(fromIndex: Int, entries: CharArray): Int? {
+            val active = currentState.activeWordIndices
+            val pos = active.indexOf(fromIndex)
+            if (pos < 0) return null
+            for (p in (pos - 1) downTo 0) {
+                val candidate = active[p]
+                if (candidate !in puzzle.cells.indices) continue
+                if (puzzle.cells[candidate] !is Cell.Letter) continue
+                if (!isLocked(candidate, entries)) return candidate
+            }
+            return null
+        }
+
+        fun findNextEditableIndex(fromIndex: Int, entries: CharArray): Int? {
+            val active = currentState.activeWordIndices
+            val pos = active.indexOf(fromIndex)
+            if (pos < 0) return null
+            for (p in (pos + 1) until active.size) {
+                val candidate = active[p]
+                if (candidate !in puzzle.cells.indices) continue
+                if (puzzle.cells[candidate] !is Cell.Letter) continue
+                if (!isLocked(candidate, entries)) return candidate
+            }
+            return null
+        }
+
+        if (isLocked(index, current)) {
+            val nextIndex = findNextEditableIndex(fromIndex = index, entries = current)
+            if (nextIndex != null) {
+                _uiState.value = currentState.copy(
+                    selectedIndex = nextIndex,
+                    selectedClueText = computeSelectedClueText(
+                        puzzle = puzzle,
+                        selectedIndex = nextIndex,
+                        direction = currentState.selectedDirection,
+                    ),
+                ).let { it.copy(activeWordIndices = computeActiveWordIndices(it)) }
+            }
+            return
+        }
+
         if (newEntries[index] != '\u0000') {
             newEntries[index] = '\u0000'
             val solvedInfo = computeSolvedInfo(puzzle = puzzle, entries = newEntries)
-            _uiState.value = _uiState.value.copy(
+            _uiState.value = currentState.copy(
                 entries = newEntries,
                 isCompleted = false,
                 solvedClueIndices = solvedInfo.solvedClueIndices,
@@ -305,19 +450,18 @@ class GameViewModel(
                 selectedClueText = computeSelectedClueText(
                     puzzle = puzzle,
                     selectedIndex = index,
-                    direction = _uiState.value.selectedDirection,
+                    direction = currentState.selectedDirection,
                 ),
             )
         } else {
-            val previousIndex = findPreviousIndex(
-                state = _uiState.value,
-                fromIndex = index,
-            )
+            val previousIndex = findPreviousEditableIndex(fromIndex = index, entries = newEntries)
 
             if (previousIndex != null) {
-                newEntries[previousIndex] = '\u0000'
+                if (newEntries[previousIndex] != '\u0000') {
+                    newEntries[previousIndex] = '\u0000'
+                }
                 val solvedInfo = computeSolvedInfo(puzzle = puzzle, entries = newEntries)
-                _uiState.value = _uiState.value.copy(
+                _uiState.value = currentState.copy(
                     entries = newEntries,
                     selectedIndex = previousIndex,
                     isCompleted = false,
@@ -326,7 +470,7 @@ class GameViewModel(
                     selectedClueText = computeSelectedClueText(
                         puzzle = puzzle,
                         selectedIndex = previousIndex,
-                        direction = _uiState.value.selectedDirection,
+                        direction = currentState.selectedDirection,
                     ),
                 ).let { it.copy(activeWordIndices = computeActiveWordIndices(it)) }
             }
@@ -576,6 +720,7 @@ data class GameUiState(
 
 sealed interface GameAction {
     data class SelectCell(val index: Int) : GameAction
+    data class SelectClue(val index: Int) : GameAction
     data class InputChar(val char: Char) : GameAction
     data object Backspace : GameAction
     data object NextLevel : GameAction

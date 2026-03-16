@@ -11,6 +11,13 @@
     <string name="completed_levels">%1$d seviye tamamladım</string>
     <string name="preparing_puzzle">Bulmaca hazırlanıyor</string>
 
+    <string name="puzzle_size_title">Bulmaca boyutu</string>
+    <string name="puzzle_size_small">Küçük</string>
+    <string name="puzzle_size_medium">Orta</string>
+    <string name="puzzle_size_large">Büyük</string>
+    <string name="puzzle_size_xl">Çok büyük</string>
+    <string name="puzzle_size_xxl">Dev</string>
+
     <string name="congrats_dialog_title">Tebrikler</string>
     <string name="congrats_dialog_message">Tüm soruları doğru cevapladın.</string>
     <string name="next_level">Sonraki</string>

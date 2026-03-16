@@ -7,25 +7,53 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = AwPrimaryDark,
+    onPrimary = AwOnPrimaryDark,
+    primaryContainer = AwPrimaryContainerDark,
+    onPrimaryContainer = AwOnPrimaryContainerDark,
+
+    secondary = AwSecondaryDark,
+    onSecondary = AwOnSecondaryDark,
+    secondaryContainer = AwSecondaryContainerDark,
+    onSecondaryContainer = AwOnSecondaryContainerDark,
+
+    tertiary = AwTertiaryDark,
+    onTertiary = AwOnTertiaryDark,
+    tertiaryContainer = AwTertiaryContainerDark,
+    onTertiaryContainer = AwOnTertiaryContainerDark,
+
+    background = AwBackgroundDark,
+    onBackground = AwOnBackgroundDark,
+    surface = AwSurfaceDark,
+    onSurface = AwOnSurfaceDark,
+    surfaceVariant = AwSurfaceVariantDark,
+    onSurfaceVariant = AwOnSurfaceVariantDark,
+    outline = AwOutlineDark,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = AwPrimaryLight,
+    onPrimary = AwOnPrimaryLight,
+    primaryContainer = AwPrimaryContainerLight,
+    onPrimaryContainer = AwOnPrimaryContainerLight,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    secondary = AwSecondaryLight,
+    onSecondary = AwOnSecondaryLight,
+    secondaryContainer = AwSecondaryContainerLight,
+    onSecondaryContainer = AwOnSecondaryContainerLight,
+
+    tertiary = AwTertiaryLight,
+    onTertiary = AwOnTertiaryLight,
+    tertiaryContainer = AwTertiaryContainerLight,
+    onTertiaryContainer = AwOnTertiaryContainerLight,
+
+    background = AwBackgroundLight,
+    onBackground = AwOnBackgroundLight,
+    surface = AwSurfaceLight,
+    onSurface = AwOnSurfaceLight,
+    surfaceVariant = AwSurfaceVariantLight,
+    onSurfaceVariant = AwOnSurfaceVariantLight,
+    outline = AwOutlineLight,
 )
 
 @Composable

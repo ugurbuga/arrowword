@@ -39,12 +39,16 @@ class LevelSelectViewModel(
 
     fun onAction(action: LevelSelectAction) {
         when (action) {
-            LevelSelectAction.RandomPuzzle -> {
+            is LevelSelectAction.SelectSize -> {
+                _uiState.value = _uiState.value.copy(selectedSize = action.size)
+            }
+
+            LevelSelectAction.Play -> {
                 viewModelScope.launch {
                     if (_uiState.value.isLoading) return@launch
 
                     _uiState.value = _uiState.value.copy(isLoading = true)
-                    val size = GeneratedPuzzleSize.entries.random()
+                    val size = _uiState.value.selectedSize
                     val levelId = generateRandomLevelIdUseCase.generate()
 
                     try {
@@ -84,10 +88,12 @@ class LevelSelectViewModel(
 data class LevelSelectUiState(
     val completedCount: Int = 0,
     val isLoading: Boolean = false,
+    val selectedSize: GeneratedPuzzleSize = GeneratedPuzzleSize.MEDIUM,
 )
 
 sealed interface LevelSelectAction {
-    object RandomPuzzle : LevelSelectAction
+    data class SelectSize(val size: GeneratedPuzzleSize) : LevelSelectAction
+    object Play : LevelSelectAction
 }
 
 sealed interface LevelSelectViewEvent {

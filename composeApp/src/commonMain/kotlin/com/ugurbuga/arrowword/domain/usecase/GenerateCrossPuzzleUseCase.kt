@@ -21,6 +21,9 @@ class GenerateCrossPuzzleUseCase {
         val candidatesH = words.filter { it.answerLength in 2..maxLenRight }
         val candidatesV = words.filter { it.answerLength in 2..maxLenDown }
 
+        val candidatesHByLen: Map<Int, List<WordEntry>> = candidatesH.groupBy { it.answerLength }
+        val candidatesVByLen: Map<Int, List<WordEntry>> = candidatesV.groupBy { it.answerLength }
+
         if (candidatesH.isEmpty()) error("No horizontal candidates")
         if (candidatesV.isEmpty()) error("No vertical candidates")
 
@@ -212,16 +215,17 @@ class GenerateCrossPuzzleUseCase {
                 Direction.RIGHT -> maxLenRight
                 Direction.DOWN -> maxLenDown
             }
-            val source = when (direction) {
-                Direction.RIGHT -> candidatesH
-                Direction.DOWN -> candidatesV
+            val sourceByLen = when (direction) {
+                Direction.RIGHT -> candidatesHByLen
+                Direction.DOWN -> candidatesVByLen
             }
 
             val result = ArrayList<Placement>(64)
-            val lenPool = source.filter { it.answerLength <= maxLen }
-            if (lenPool.isEmpty()) return emptyList()
+            if (sourceByLen.isEmpty()) return emptyList()
 
             repeat(80) {
+                val len = random.nextInt(2, maxLen + 1)
+                val lenPool = sourceByLen[len] ?: return@repeat
                 val w = lenPool.randomOrNull(random) ?: return@repeat
                 val value = w.value
 
@@ -261,61 +265,265 @@ class GenerateCrossPuzzleUseCase {
             return result
         }
 
+        fun seedNonIntersecting(
+            clueCells: MutableMap<Int, Cell.Clue>,
+            letterCells: MutableMap<Int, Char>,
+        ): Boolean {
+            var best: Placement? = null
+            var bestScore = 0
+
+            repeat(600) {
+                val dir = if (random.nextBoolean()) Direction.RIGHT else Direction.DOWN
+                val w = when (dir) {
+                    Direction.RIGHT -> candidatesH.randomOrNull(random)
+                    Direction.DOWN -> candidatesV.randomOrNull(random)
+                } ?: return@repeat
+
+                val clueRow = random.nextInt(height)
+                val clueCol = random.nextInt(width)
+
+                val endRow = when (dir) {
+                    Direction.RIGHT -> clueRow
+                    Direction.DOWN -> clueRow + w.answerLength
+                }
+                val endCol = when (dir) {
+                    Direction.RIGHT -> clueCol + w.answerLength
+                    Direction.DOWN -> clueCol
+                }
+                if (endRow !in 0 until height || endCol !in 0 until width) return@repeat
+
+                val p = Placement(
+                    direction = dir,
+                    clueRow = clueRow,
+                    clueCol = clueCol,
+                    word = w,
+                )
+                val (ok, newLetters) = canPlace(p, clueCells, letterCells)
+                if (!ok) return@repeat
+                if (newLetters > bestScore) {
+                    bestScore = newLetters
+                    best = p
+                    if (bestScore >= w.answerLength) return@repeat
+                }
+            }
+
+            val chosen = best ?: return false
+            if (bestScore <= 0) return false
+            place(chosen, clueCells, letterCells)
+            return true
+        }
+
+        fun greedyGapFill(
+            clueCells: MutableMap<Int, Cell.Clue>,
+            letterCells: MutableMap<Int, Char>,
+            maxPlacements: Int,
+            sampleAttempts: Int,
+            maxSampledEmptyCells: Int,
+        ) {
+            fun isOccupied(index: Int): Boolean = index in clueCells || index in letterCells
+
+            fun maxAnswerLengthFrom(
+                clueRow: Int,
+                clueCol: Int,
+                direction: Direction,
+            ): Int {
+                var len = 0
+                while (true) {
+                    val next = len + 1
+                    val r = when (direction) {
+                        Direction.RIGHT -> clueRow
+                        Direction.DOWN -> clueRow + next
+                    }
+                    val c = when (direction) {
+                        Direction.RIGHT -> clueCol + next
+                        Direction.DOWN -> clueCol
+                    }
+                    if (r !in 0 until height || c !in 0 until width) return len
+                    if (isOccupied(idx(r, c))) return len
+                    len = next
+                }
+            }
+
+            fun chooseWordFor(dir: Direction, maxLen: Int): WordEntry? {
+                if (maxLen < 2) return null
+                val sourceByLen = when (dir) {
+                    Direction.RIGHT -> candidatesHByLen
+                    Direction.DOWN -> candidatesVByLen
+                }
+
+                for (len in maxLen downTo 2) {
+                    val pool = sourceByLen[len] ?: continue
+                    if (pool.isNotEmpty()) return pool.randomOrNull(random)
+                }
+                return null
+            }
+
+            repeat(maxPlacements) {
+                var best: Placement? = null
+                var bestNewLetters = 0
+
+                val emptyIndices = ArrayList<Int>(maxSampledEmptyCells)
+                repeat(sampleAttempts) {
+                    if (emptyIndices.size >= maxSampledEmptyCells) return@repeat
+                    val candidate = random.nextInt(width * height)
+                    if (isOccupied(candidate)) return@repeat
+                    emptyIndices.add(candidate)
+                }
+
+                for (emptyIndex in emptyIndices) {
+                    val r = emptyIndex / width
+                    val c = emptyIndex % width
+
+                    for (dir in listOf(Direction.RIGHT, Direction.DOWN)) {
+                        val maxLen = maxAnswerLengthFrom(r, c, dir)
+                        val w = chooseWordFor(dir, maxLen) ?: continue
+                        val p = Placement(
+                            direction = dir,
+                            clueRow = r,
+                            clueCol = c,
+                            word = w,
+                        )
+                        val (ok, newLetters) = canPlace(p, clueCells, letterCells)
+                        if (!ok) continue
+                        if (newLetters > bestNewLetters) {
+                            bestNewLetters = newLetters
+                            best = p
+                            if (bestNewLetters >= w.answerLength) break
+                        }
+                    }
+                }
+
+                val chosen = best ?: return
+                if (bestNewLetters <= 0) return
+                place(chosen, clueCells, letterCells)
+            }
+        }
+
         val bestCells = MutableList<Cell>(width * height) { Cell.Block }
+        var bestBlocks = width * height
         var bestFill = 0
+
+        val area = width * height
+
+        val attemptCount = when {
+            area <= 70 -> 45
+            area <= 120 -> 32
+            else -> 24
+        }
+
+        val growIterations = when {
+            area <= 70 -> 220
+            area <= 120 -> 180
+            else -> 140
+        }
+
+        val gapFillPlacements = when {
+            area <= 70 -> 220
+            area <= 120 -> 160
+            else -> 110
+        }
+
+        val gapFillSampleAttempts = when {
+            area <= 70 -> 520
+            area <= 120 -> 360
+            else -> 260
+        }
+
+        val gapFillMaxSampledEmptyCells = when {
+            area <= 70 -> 240
+            area <= 120 -> 180
+            else -> 140
+        }
 
         val targetWords = when {
             width * height <= 40 -> 6
             width * height <= 70 -> 10
-            else -> 14
+            else -> 18
         }
 
-        repeat(30) {
+        repeat(attemptCount) {
             val clueCells = HashMap<Int, Cell.Clue>()
             val letterCells = HashMap<Int, Char>()
 
             if (!seedIntersecting(clueCells, letterCells)) return@repeat
 
             var placedWords = clueCells.size
+            var noProgress = 0
 
-            repeat(120) {
+            repeat(growIterations) {
                 if (placedWords >= targetWords) return@repeat
-                if (letterCells.isEmpty()) return@repeat
 
-                val letterIndex = letterCells.keys.elementAt(random.nextInt(letterCells.size))
-                val r = letterIndex / width
-                val c = letterIndex % width
-                val ch = letterCells[letterIndex] ?: return@repeat
+                var progressed = false
 
-                val dir = if (random.nextBoolean()) Direction.RIGHT else Direction.DOWN
-                val candidates = generateCrossingCandidates(r, c, ch, dir)
-                if (candidates.isEmpty()) return@repeat
+                if (letterCells.isNotEmpty()) {
+                    val letterIndex = letterCells.keys.elementAt(random.nextInt(letterCells.size))
+                    val r = letterIndex / width
+                    val c = letterIndex % width
+                    val ch = letterCells[letterIndex] ?: return@repeat
 
-                var best: Placement? = null
-                var bestScore = 0
+                    val dir = if (random.nextBoolean()) Direction.RIGHT else Direction.DOWN
+                    val candidates = generateCrossingCandidates(r, c, ch, dir)
 
-                for (p in candidates) {
-                    val (ok, newLetters) = canPlace(p, clueCells, letterCells)
-                    if (!ok) continue
-                    if (newLetters > bestScore) {
-                        bestScore = newLetters
-                        best = p
-                        if (bestScore >= p.word.answerLength) break
+                    var best: Placement? = null
+                    var bestScore = 0
+
+                    for (p in candidates) {
+                        val (ok, newLetters) = canPlace(p, clueCells, letterCells)
+                        if (!ok) continue
+                        if (newLetters > bestScore) {
+                            bestScore = newLetters
+                            best = p
+                            if (bestScore >= p.word.answerLength) break
+                        }
+                    }
+
+                    if (best != null && bestScore > 0) {
+                        place(best, clueCells, letterCells)
+                        placedWords++
+                        progressed = true
                     }
                 }
 
-                val chosen = best ?: return@repeat
-                if (bestScore <= 0) return@repeat
-                place(chosen, clueCells, letterCells)
-                placedWords++
+                if (!progressed && (letterCells.isEmpty() || noProgress >= 12)) {
+                    if (seedNonIntersecting(clueCells, letterCells)) {
+                        placedWords++
+                        progressed = true
+                    }
+                }
+
+                if (progressed) {
+                    noProgress = 0
+                } else {
+                    noProgress++
+                    if (noProgress >= 30) return@repeat
+                }
             }
 
+            greedyGapFill(
+                clueCells = clueCells,
+                letterCells = letterCells,
+                maxPlacements = gapFillPlacements,
+                sampleAttempts = gapFillSampleAttempts,
+                maxSampledEmptyCells = gapFillMaxSampledEmptyCells,
+            )
+
             val fill = clueCells.size + letterCells.size
-            if (fill > bestFill) {
+            val blocks = width * height - fill
+            if (blocks < bestBlocks || (blocks == bestBlocks && fill > bestFill)) {
+                bestBlocks = blocks
                 bestFill = fill
                 for (i in bestCells.indices) bestCells[i] = Cell.Block
                 for ((i, clue) in clueCells) bestCells[i] = clue
                 for ((i, ch) in letterCells) bestCells[i] = Cell.Letter(solution = ch)
+
+                if (bestBlocks == 0) {
+                    return Puzzle(
+                        id = levelId,
+                        width = width,
+                        height = height,
+                        cells = bestCells,
+                    )
+                }
             }
         }
 

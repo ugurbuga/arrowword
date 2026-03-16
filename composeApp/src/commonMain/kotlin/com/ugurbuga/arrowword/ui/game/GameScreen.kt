@@ -1,67 +1,71 @@
 package com.ugurbuga.arrowword.ui.game
 
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
-import org.jetbrains.compose.resources.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.window.DialogProperties
+import com.ugurbuga.arrowword.domain.model.Cell
+import com.ugurbuga.arrowword.domain.model.Direction
+import com.ugurbuga.arrowword.domain.model.Puzzle
 import com.ugurbuga.arrowword.generated.resources.Res
 import com.ugurbuga.arrowword.generated.resources.back
 import com.ugurbuga.arrowword.generated.resources.cancel
@@ -72,14 +76,10 @@ import com.ugurbuga.arrowword.generated.resources.congrats_dialog_title
 import com.ugurbuga.arrowword.generated.resources.next_level
 import com.ugurbuga.arrowword.generated.resources.preparing_puzzle
 import com.ugurbuga.arrowword.generated.resources.top_app_bar_puzzle_title
-import com.ugurbuga.arrowword.domain.model.Cell
-import com.ugurbuga.arrowword.domain.model.Direction
 import com.ugurbuga.arrowword.ui.theme.ArrowwordTheme
-import androidx.compose.foundation.relocation.BringIntoViewRequester
-import androidx.compose.foundation.relocation.bringIntoViewRequester
-import androidx.compose.runtime.LaunchedEffect
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
+import kotlin.random.Random
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
@@ -97,7 +97,6 @@ fun GameScreen(
 
     var keyboardBuffer by remember { mutableStateOf("") }
     var isCongratsDialogOpen by remember { mutableStateOf(false) }
-    var clueTooltipText by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(state.isCompleted) {
         if (state.isCompleted) {
@@ -113,12 +112,6 @@ fun GameScreen(
         }
     }
 
-    LaunchedEffect(clueTooltipText) {
-        if (clueTooltipText != null) {
-            delay(1500)
-            clueTooltipText = null
-        }
-    }
 
     GameScreenDialogs(
         isCongratsDialogOpen = isCongratsDialogOpen,
@@ -180,25 +173,6 @@ fun GameScreen(
                 singleLine = true,
             )
 
-            if (clueTooltipText != null) {
-                Surface(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 12.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    color = MaterialTheme.colorScheme.inverseSurface,
-                ) {
-                    Text(
-                        text = clueTooltipText ?: "",
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                        color = MaterialTheme.colorScheme.inverseOnSurface,
-                        style = MaterialTheme.typography.bodyMedium,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
-            }
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -209,6 +183,22 @@ fun GameScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 state.puzzle?.let { puzzle ->
+                    state.selectedClueText?.let { clueText ->
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                        ) {
+                            Text(
+                                text = clueText,
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                maxLines = 3,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                    }
+
                     BoxWithConstraints(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -246,9 +236,9 @@ fun GameScreen(
                                                     }
 
                                                     is Cell.Clue -> {
-                                                        clueTooltipText = cell.text
-                                                        focusManager.clearFocus(force = true)
-                                                        keyboardController?.hide()
+                                                        onAction(GameAction.SelectClue(index))
+                                                        focusRequester.requestFocus()
+                                                        keyboardController?.show()
                                                     }
 
                                                     is Cell.Block -> {
@@ -265,21 +255,6 @@ fun GameScreen(
                                 }
                             }
 
-                            state.selectedClueText?.let { clueText ->
-                                Surface(
-                                    shape = RoundedCornerShape(12.dp),
-                                    color = MaterialTheme.colorScheme.secondaryContainer,
-                                ) {
-                                    Text(
-                                        text = clueText,
-                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                        maxLines = 3,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                }
-                            }
                         }
                     }
                 }
@@ -297,11 +272,17 @@ private fun GameScaffold(
 ) {
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            ,
+            .fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(Res.string.top_app_bar_puzzle_title, puzzleNumber)) },
+                title = {
+                    Text(
+                        text = stringResource(
+                            Res.string.top_app_bar_puzzle_title,
+                            puzzleNumber
+                        )
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
@@ -385,7 +366,8 @@ private fun PuzzleCell(
         }
     }
 
-    val borderColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
+    val borderColor =
+        if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
     val borderWidth = if (selected) 2.dp else 1.dp
     val overlayAlpha = if (selected) 0.10f else 0f
     val elevation = if (selected) 6.dp else 0.dp
@@ -455,17 +437,64 @@ private fun PuzzleCell(
                 } else {
                     normalizeTrUppercaseChar(entered).toString()
                 }
-                Box(
+                BoxWithConstraints(
                     modifier = Modifier.matchParentSize(),
-                    contentAlignment = Alignment.Center,
                 ) {
-                    Text(
-                        text = shown,
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = if (solved) Color.White else MaterialTheme.colorScheme.onSurface,
-                    )
+                    val density = LocalDensity.current
+                    val cellMinDp = minOf(maxWidth, maxHeight)
+                    val fontSp = with(density) { (cellMinDp.toPx() * 0.55f).toSp() }
+                    val clampedFontSp = fontSp.value.coerceIn(10f, 26f).sp
+                    Box(
+                        modifier = Modifier.matchParentSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = shown,
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontSize = clampedFontSp,
+                                lineHeight = clampedFontSp,
+                            ),
+                            color = if (solved) Color.White else MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1,
+                        )
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+@Preview
+fun GameScreenPreview() {
+    val width = 12
+    val height = 21
+    ArrowwordTheme {
+        val puzzle = Puzzle(
+            id = "1",
+            width = width,
+            height = height,
+            cells = List(width * height) { getCell() }
+        )
+        val state = GameUiState(
+            puzzleNumber = 1,
+            puzzle = puzzle,
+            selectedIndex = 1,
+            entries = CharArray(9) { if (it == 1) 'A' else '\u0000' }
+        )
+        GameScreen(
+            state = state,
+            onAction = {},
+            onNavigateBack = {}
+        )
+    }
+}
+
+fun getCell(): Cell {
+    val random = Random.nextInt(0, 3)
+    return when (random) {
+        0 -> Cell.Clue(Direction.RIGHT, 2, "Clue 1")
+        1 -> Cell.Letter('A')
+        else -> Cell.Block
     }
 }
